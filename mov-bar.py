@@ -114,16 +114,16 @@ def main(argv):
 		elif opt == '-s':
 			show = True
 		elif opt == '-l':
-			l = int(arg)
+			l = float(arg)
 		elif opt == '-w':
-			w = int(arg)
+			w = float(arg)
 		elif opt == '-n':
 			title = str(arg)
 
 	if not l == 0:
-		resolution = (l * 300, resolution[1])
+		resolution = (int(l * 300), resolution[1])
 	if not w == 0:
-		resolution = (resolution[0], w * 300)
+		resolution = (resolution[0], int(w * 300))
 
 	if in_file.endswith('csv'):
 		generate_from_csv()
@@ -352,8 +352,9 @@ def add_title(img):
 		h,w,c = img.shape
 		font = fonts[0]
 		# change this if text isn't aligned
-		char_spacing = 20
-		return cv2.putText(img, title.upper(), (w-(len(title * char_spacing)), h-10), font, 1, (255, 255, 255), 3)
+		mult = 10
+		char_spacing = 20*mult
+		return cv2.putText(img, title.upper(), (w-(len(title * char_spacing)), h-10), font, 1*mult, (255, 255, 255), 3)
 	return img
 if __name__ == "__main__":
 	if len(sys.argv) < 2:
